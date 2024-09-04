@@ -18,27 +18,6 @@ Feature:
 - 好看的主题 (卡片/列表、夜间模式)
 - WEBSSH、脚本片段
 
-TODOLIST:
-
-- 主动通知模式
-- 硬盘监控
-- WEBSSH的一些小问题
-
-## 一键脚本安装
-
-在centos7/debian 10下测试成功，其他系统请自行尝试，参照[手动安装](#手动安装)
-
-wget:
-
-```bash
-wget https://raw.githubusercontent.com/nkeonkeo/nekonekostatus/main/install.sh -O install.sh && bash install.sh
-```
-
-curl:
-
-```bash
-curl https://raw.githubusercontent.com/nkeonkeo/nekonekostatus/main/install.sh -o install.sh && bash install.sh
-```
 
 ## 更新
 
@@ -50,19 +29,8 @@ git pull
 systemctl restart nekonekostatus-dashboard
 ```
 
-## Docker
-
-```bash
-docker run --restart=on-failure --name nekonekostatus -p 5555:5555 -d nkeonkeo/nekonekostatus:latest
-```
-
-访问目标ip 5555端口即可,`5555:5555`可改成任意其他端口，如`2333:5555`
-
-备份数据库: `/root/nekonekostatus/database/db.db`
-
-
 ## Heroku
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)]([https://www.heroku.com/deploy](https://www.heroku.com/deploy?template=https://github.com/ewehiuw3743283478/nekonekostatus])
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://www.heroku.com/deploy?template=https://github.com/ewehiuw3743283478/nekonekostatus)
 
 
 ## 手动安装
