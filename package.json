@@ -7,7 +7,7 @@
     },
     "keywords": [],
     "engines": {
-        "node": ">=12"
+        "node": ">=16 <20"
     },
     "author": "nekoneko",
     "license": "MIT",
