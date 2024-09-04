@@ -62,7 +62,7 @@ docker run --restart=on-failure --name nekonekostatus -p 5555:5555 -d nkeonkeo/n
 
 
 ## Heroku
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)]([https://www.heroku.com/deploy](https://www.heroku.com/deploy?template=https://github.com/ewehiuw3743283478/nekonekostatus))
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)]([https://www.heroku.com/deploy](https://www.heroku.com/deploy?template=https://github.com/ewehiuw3743283478/nekonekostatus])
 
 
 ## 手动安装
