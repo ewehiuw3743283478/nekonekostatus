@@ -7,7 +7,7 @@
     },
     "keywords": [],
     "engines": {
-        "node": ">=16 <20"
+        "node": "18.x"
     },
     "author": "nekoneko",
     "license": "MIT",
