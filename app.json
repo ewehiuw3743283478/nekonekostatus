@@ -1,0 +1,7 @@
+{
+  "name": "Neko Neko Status",
+  "description": "一个Material Design风格的服务器探针",
+  "repository": "https://github.com/ewehiuw3743283478/nekonekostatus",
+  "logo": "https://node-js-sample-1234567890ab.herokuapp.com/node.png",
+  "keywords": ["node", "express", "static"]
+}
