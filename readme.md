@@ -60,6 +60,11 @@ docker run --restart=on-failure --name nekonekostatus -p 5555:5555 -d nkeonkeo/n
 
 备份数据库: `/root/nekonekostatus/database/db.db`
 
+
+## Heroku
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://www.heroku.com/deploy)
+
+
 ## 手动安装
 
 依赖: `nodejs`, `gcc/g++ version 8.x `, `git`
