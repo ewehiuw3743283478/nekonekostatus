@@ -1,61 +1,90 @@
 package main
 
 import (
+	"log"
+	"net/http"
 	"neko-status/iperf3"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gorilla/websocket"
 )
+
+const (
+	defaultPort     = 5201
+	defaultTime     = 10
+	defaultParallel = 1
+	defaultProtocol = "tcp"
+)
+
+var upGrader = websocket.Upgrader{
+	CheckOrigin: func(r *http.Request) bool { return true },
+}
 
 func Iperf3(c *gin.Context) {
 	host := c.PostForm("host")
-	port, _ := strconv.Atoi(c.PostForm("count"))
-	if port == 0 {
-		port = 5201
+	port, err := strconv.Atoi(c.PostForm("port"))
+	if err != nil || port == 0 {
+		port = defaultPort
 	}
 	reverse := c.PostForm("reverse") != ""
-	time, _ := strconv.Atoi(c.PostForm("time"))
-	if time == 0 {
-		time = 10
+	time, err := strconv.Atoi(c.PostForm("time"))
+	if err != nil || time == 0 {
+		time = defaultTime
 	}
-	parallel, _ := strconv.Atoi(c.PostForm("parallel"))
-	if parallel == 0 {
-		parallel = 1
+	parallel, err := strconv.Atoi(c.PostForm("parallel"))
+	if err != nil || parallel == 0 {
+		parallel = defaultParallel
 	}
 	protocol := c.PostForm("protocol")
 	if protocol == "" {
-		protocol = "tcp"
+		protocol = defaultProtocol
 	}
+
 	res, err := iperf3.Iperf3(host, port, reverse, time, parallel, protocol, nil)
 	if err == nil {
-		resp(c, true, res, 200)
+		resp(c, true, res, http.StatusOK)
 	} else {
-		resp(c, false, err, 500)
+		resp(c, false, err.Error(), http.StatusInternalServerError)
 	}
 }
 
 func Iperf3Ws(c *gin.Context) {
 	host := c.Query("host")
-	port, _ := strconv.Atoi(c.Query("count"))
-	if port == 0 {
-		port = 5201
+	port, err := strconv.Atoi(c.Query("port"))
+	if err != nil || port == 0 {
+		port = defaultPort
 	}
 	reverse := c.Query("reverse") != ""
-	time, _ := strconv.Atoi(c.Query("time"))
-	if time == 0 {
-		time = 10
+	time, err := strconv.Atoi(c.Query("time"))
+	if err != nil || time == 0 {
+		time = defaultTime
 	}
-	parallel, _ := strconv.Atoi(c.Query("parallel"))
-	if parallel == 0 {
-		parallel = 1
+	parallel, err := strconv.Atoi(c.Query("parallel"))
+	if err != nil || parallel == 0 {
+		parallel = defaultParallel
 	}
 	protocol := c.Query("protocol")
 	if protocol == "" {
-		protocol = "tcp"
+		protocol = defaultProtocol
 	}
+
 	ws, err := upGrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
+		log.Println("WebSocket upgrade error:", err)
 		return
 	}
-	iperf3.Iperf3(host, port, reverse, time, parallel, protocol, ws)
+	defer ws.Close()
+
+	err = iperf3.Iperf3(host, port, reverse, time, parallel, protocol, ws)
+	if err != nil {
+		log.Println("iperf3 error:", err)
+	}
+}
+
+func resp(c *gin.Context, success bool, data interface{}, statusCode int) {
+	c.JSON(statusCode, gin.H{
+		"success": success,
+		"data":    data,
+	})
 }
