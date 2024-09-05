@@ -30,7 +30,7 @@ systemctl restart nekonekostatus-dashboard
 ```
 
 ## Heroku
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://www.heroku.com/deploy?template=https://github.com/ewehiuw3743283478/nekonekostatus)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://www.heroku.com/deploy?template=https://github.com/ewehiuw3743283478/nekonekostatus/tree/b0df3d1d3a20fb895b5a4c21936302ade6601095)
 
 
 ## 手动安装
